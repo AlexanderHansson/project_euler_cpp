@@ -20,10 +20,17 @@ bool check_divisibility(size_t x, std::vector<size_t>& primes) {
     return false;
 }
 
+bool euler_primes::is_prime(size_t number) {
+    std::vector<size_t> primes = get_primes(sqrt(number));
+    return !check_divisibility(number, primes);
+}
+
 std::vector<size_t> euler_primes::get_primes(size_t number) {
     std::vector<size_t> primes;
-    for (size_t i = 2; i < number; i++) {
+    for (size_t i = 2; i <= number; i++) {
+        std::cout << i << std::endl;
         if (!check_divisibility(i, primes)) {
+            std::cout << "divisible" << std::endl;
             primes.push_back(i);
         }
     }
@@ -31,16 +38,19 @@ std::vector<size_t> euler_primes::get_primes(size_t number) {
 }
 
 std::vector<size_t> euler_primes::prime_factorize(size_t number) {
-    std::vector<size_t> primes = get_primes(sqrt(number));
+    std::vector<size_t> primes;
     std::vector<size_t> factors;
-    for (size_t p : primes) {
-        while (number % p == 0) {
-            factors.push_back(p);
-            number/=p;
+    size_t x = 2;
+    while (number > 1) {
+        if (!check_divisibility(x, primes)) {
+            // x is prime
+            primes.push_back(x);
+            while (number % x == 0) {
+                factors.push_back(x);
+                number/=x;
+            }
         }
-        if (number == 1) {
-            break;
-        }
+        x+=1;
     }
     return factors;
 }
