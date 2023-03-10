@@ -21,6 +21,9 @@ bool check_divisibility(size_t x, std::vector<size_t>& primes) {
 }
 
 bool euler_primes::is_prime(size_t number) {
+    if (number < 2) {
+        return false;
+    }
     std::vector<size_t> primes = get_primes(sqrt(number));
     return !check_divisibility(number, primes);
 }
