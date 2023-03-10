@@ -28,9 +28,7 @@ bool euler_primes::is_prime(size_t number) {
 std::vector<size_t> euler_primes::get_primes(size_t number) {
     std::vector<size_t> primes;
     for (size_t i = 2; i <= number; i++) {
-        std::cout << i << std::endl;
         if (!check_divisibility(i, primes)) {
-            std::cout << "divisible" << std::endl;
             primes.push_back(i);
         }
     }

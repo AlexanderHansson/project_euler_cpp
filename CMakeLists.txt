@@ -3,22 +3,18 @@ project(euler)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g")
 set(INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install)
+set(PROBLEMS_INSTALL_DIR ${INSTALL_DIR}/problems)
 
-#---------- shared resources ----------------
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+     SET(CMAKE_INSTALL_PREFIX ${INSTALL_DIR}/googletest CACHE PATH override FORCE)
+ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+
+#---------- shared resources ---------------
 set(SHARED_LIB euler_shared)
+add_subdirectory(shared)
 
-file(GLOB SHARED_SRC
-    "shared/src/*.cpp"
-)
+# ------------------Test--------------------
+add_subdirectory(test)
 
-add_library(${SHARED_LIB} STATIC ${SHARED_SRC})
-
-target_include_directories(${SHARED_LIB}
-    PUBLIC
-    "shared/include"
-)
-# -------------------------------------------
-
-add_subdirectory(001-multiples-of-3-or-5)
-add_subdirectory(002-even-fibonacci-numbers)
-add_subdirectory(003-largest-prime-factor)
+#-----------------Problems------------------
+add_subdirectory(problems)

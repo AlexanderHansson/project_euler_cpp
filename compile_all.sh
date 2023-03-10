@@ -4,7 +4,7 @@ mkdir -p build
 mkdir -p install
 pushd build
 cmake ..
-make
+make -j $(nproc --ignore 2)
 make install
 popd
 
