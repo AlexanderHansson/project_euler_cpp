@@ -38,6 +38,20 @@ std::vector<size_t> euler_primes::get_primes(size_t number) {
     return primes;
 }
 
+std::vector<size_t> euler_primes::n_first_primes(size_t n) {
+    std::vector<size_t> primes;
+    size_t n_primes;
+    size_t i = 2;
+    while (n_primes < n) {
+        if (!check_divisibility(i, primes)) {
+            primes.push_back(i);
+            n_primes++;
+        }
+        i++;
+    }
+    return primes;
+}
+
 std::vector<size_t> euler_primes::prime_factorize(size_t number) {
     std::vector<size_t> primes;
     std::vector<size_t> factors;
